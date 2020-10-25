@@ -10,10 +10,10 @@ int main()
 	bool isFebruary = month == 2;
 	bool has30Days = month == 4 || month == 6 || month == 9 || month == 11;
 	bool isLeapYear = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
-	bool hasInvalidTokens = day > 31 || day < 1 || month > 12 || month < 1 || year < 0;
+	bool hasInvalidValues = day > 31 || day < 1 || month > 12 || month < 1 || year < 0;
 	bool isValidDate = true;
 
-	if (hasInvalidTokens || (has30Days && day > 30))
+	if (hasInvalidValues || (has30Days && day > 30))
 	{
 		isValidDate = false;
 	}

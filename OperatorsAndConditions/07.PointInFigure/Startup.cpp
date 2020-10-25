@@ -9,7 +9,7 @@ int main()
 	cin >> x >> y;
 
 	bool inRectangle = x >= -6 && x <= -2 && y >= 2 && y <= 5;
-	bool inCircle = pow(abs(x - 4), 2) + pow(abs(y - 2), 2) <= 1;
+	bool inCircle = pow(abs(x - 4), 2) + pow(abs(y - 2), 2) <= 1; //pow(2, 3) => 2 ^ 3
 
 	if (inRectangle)
 	{
@@ -26,7 +26,7 @@ int main()
 		//Calculate area of HIG triangle
 		double area = abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2);
 
-		//Calculate area of PIG triangle
+		//Calculate area of PIG triangle, where P is the point with coordinates x, y
 		double area1 = abs((x * (y2 - y3) + x2 * (y3 - y) + x3 * (y - y2)) / 2);
 
 		//Calculate area of PHG triangle
