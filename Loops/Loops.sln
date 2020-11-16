@@ -19,8 +19,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "09.Primes", "09.Primes\09.P
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10.Palindrome", "10.Palindrome\10.Palindrome.vcxproj", "{10929774-95FC-4AD5-924C-88B9FA8D9481}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "11.Pyramid", "11.Pyramid\11.Pyramid.vcxproj", "{BFC60682-8BF9-41AD-9FB8-C6563BAE42AD}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04.NumberDivisors", "04.NumberDivisors\04.NumberDivisors.vcxproj", "{C994C24B-6119-4CE7-AC0B-D0BAFFDD25F0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "08.NumbersDivisibleByThree", "08.NumbersDivisibleByThree\08.NumbersDivisibleByThree.vcxproj", "{FE7F1198-20B4-42EE-BFEF-1B0BA1C76C5A}"
@@ -97,14 +95,6 @@ Global
 		{10929774-95FC-4AD5-924C-88B9FA8D9481}.Release|x64.Build.0 = Release|x64
 		{10929774-95FC-4AD5-924C-88B9FA8D9481}.Release|x86.ActiveCfg = Release|Win32
 		{10929774-95FC-4AD5-924C-88B9FA8D9481}.Release|x86.Build.0 = Release|Win32
-		{BFC60682-8BF9-41AD-9FB8-C6563BAE42AD}.Debug|x64.ActiveCfg = Debug|x64
-		{BFC60682-8BF9-41AD-9FB8-C6563BAE42AD}.Debug|x64.Build.0 = Debug|x64
-		{BFC60682-8BF9-41AD-9FB8-C6563BAE42AD}.Debug|x86.ActiveCfg = Debug|Win32
-		{BFC60682-8BF9-41AD-9FB8-C6563BAE42AD}.Debug|x86.Build.0 = Debug|Win32
-		{BFC60682-8BF9-41AD-9FB8-C6563BAE42AD}.Release|x64.ActiveCfg = Release|x64
-		{BFC60682-8BF9-41AD-9FB8-C6563BAE42AD}.Release|x64.Build.0 = Release|x64
-		{BFC60682-8BF9-41AD-9FB8-C6563BAE42AD}.Release|x86.ActiveCfg = Release|Win32
-		{BFC60682-8BF9-41AD-9FB8-C6563BAE42AD}.Release|x86.Build.0 = Release|Win32
 		{C994C24B-6119-4CE7-AC0B-D0BAFFDD25F0}.Debug|x64.ActiveCfg = Debug|x64
 		{C994C24B-6119-4CE7-AC0B-D0BAFFDD25F0}.Debug|x64.Build.0 = Debug|x64
 		{C994C24B-6119-4CE7-AC0B-D0BAFFDD25F0}.Debug|x86.ActiveCfg = Debug|Win32
