@@ -19,18 +19,18 @@ bool hasValidRoots(int k)
 	double x1 = (-b + sqrt(discriminant)) / (2 * a);
 	double x2 = (-b - sqrt(discriminant)) / (2 * a);
 
-	return x1 + x2 < -2;
+	return x1 + x2 > -2;
 }
 
-int getMaxElement(int arr[], int n)
+long long getMaxElement(int arr[], int n)
 {
-	int max = arr[0];
+	long long max = pow(arr[0], 2);
 
 	for (int i = 1; i < n; i++)
 	{
-		if (arr[i] > max)
+		if (pow(arr[i], 2) > max)
 		{
-			max = arr[i];
+			max = pow(arr[i], 2);
 		}
 	}
 
@@ -60,9 +60,7 @@ int main()
 		}
 	}
 
-	int max = getMaxElement(validNumbers, validLength);
-
-	cout << max << endl;
+	cout << getMaxElement(validNumbers, validLength) << endl;
 
 	return 0;
 }
