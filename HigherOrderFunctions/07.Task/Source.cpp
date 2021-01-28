@@ -1,199 +1,99 @@
 #include <iostream>
 #include <cstring>
 
-bool isLetter(char c)
+typedef int(*func)(int, int);
+
+int getPoweMod(int a, int b)
 {
-    return 'A' <= c && c <= 'Z' || 'a' <= c && c <= 'z';
+	return (a * a + b * b) % 10;
 }
 
-int getWordsCount(char* sentence)
+int getSumMod(int a, int b)
 {
-    int wordsCount = 0;
-    int sentenceLength = strlen(sentence);
-
-    for (int i = 0; i < sentenceLength; i++)
-    {
-        if (isLetter(sentence[i]))
-        {
-            wordsCount++;
-        }
-
-        while (isLetter(sentence[i]) && i < sentenceLength)
-        {
-            i++;
-        }
-    }
-
-    return wordsCount;
+	return (3 * a + 4 * b) % 10;
 }
 
-void extractWordsFromSentence(char* sentence, char** words)
+bool isDigit(char c)
 {
-    int wordIndex = 0, wordCurrentIndex = 0;
-    int sentenceLength = strlen(sentence);
-    char* temp = new char[sentenceLength + 1]{};
-
-    while (*sentence != '\0' || wordCurrentIndex > 0)
-    {
-        if (isLetter(*sentence))
-        {
-            temp[wordCurrentIndex++] = *sentence;
-        }
-        else if (wordCurrentIndex > 0)
-        {
-            words[wordIndex] = new char[wordCurrentIndex + 1]{};
-
-            for (int i = 0; i <= wordCurrentIndex; i++)
-            {
-                words[wordIndex][i] = temp[i];
-            }
-
-            wordIndex++;
-            wordCurrentIndex = 0;
-
-            delete[] temp;
-            temp = new char[sentenceLength + 1]{};
-        }
-
-        if (*sentence != '\0')
-        {
-            sentence++;
-        }
-    }
-
-    delete[] temp;
+	return c >= '0' && c <= '9';
 }
 
-int findConsecutiveWordsCount(char** wordsInText, int wordsInTextCount, char** wordsInSentence, int wordsInSentenceCount)
+int getValue(char* str, int startPos, int endPos, func f, func g)
 {
-    int maxConsecutiveWordsCount = 0;
-    int consecutiveWordsCount = 0;
+	if (startPos == endPos)
+	{
+		return str[startPos] - '0';
+	}
 
-    for (int i = 0; i < wordsInSentenceCount; i++)
-    {
-        bool isInSentence = false;
+	int x, y;
+	char funcName = str[startPos];
+	startPos += 2;
 
-        for (int j = 0; j < wordsInTextCount; j++)
-        {
-            if (strcmp(wordsInText[j], wordsInSentence[i]) == 0)
-            {
-                isInSentence = true;
-                break;
-            }
-        }
+	if (isDigit(str[startPos]))
+	{
+		x = str[startPos] - '0';
+	}
+	else
+	{
+		int numBraces = 1, pos = startPos + 2; //first brace is counted, we need to find its closing one
 
-        if (isInSentence)
-        {
-            consecutiveWordsCount++;
-        }
-        else
-        {
-            if (consecutiveWordsCount > maxConsecutiveWordsCount)
-            {
-                maxConsecutiveWordsCount = consecutiveWordsCount;
-            }
+		while (numBraces != 0)
+		{
+			pos++;
 
-            consecutiveWordsCount = 0;
-        }
-    }
+			if (str[pos] == '(')
+			{
+				numBraces++;
+			}
 
-    if (consecutiveWordsCount > maxConsecutiveWordsCount)
-    {
-        maxConsecutiveWordsCount = consecutiveWordsCount;
-    }
+			if (str[pos] == ')')
+			{
+				numBraces--;
+			}
+		}
 
-    return maxConsecutiveWordsCount;
-}
+		x = getValue(str, startPos, pos, f, g);
+	}
 
-double findSameWordsPercent(char** wordsInText, int wordsInTextCount, char** wordsInSentence, int wordsInSentenceCount)
-{
-    int wordsMet = 0;
+	endPos--;
 
-    for (int i = 0; i < wordsInSentenceCount; i++)
-    {
-        for (int j = 0; j < wordsInTextCount; j++)
-        {
-            if (strcmp(wordsInText[j], wordsInSentence[i]) == 0)
-            {
-                wordsMet++;
-                break;
-            }
-        }
-    }
+	if (isDigit(str[endPos]))
+	{
+		y = str[endPos] - '0';
+	}
+	else
+	{
+		int numBraces = -1, pos = endPos; //the last brace not is counted, we need one more opening
 
-    return (double)wordsMet / wordsInSentenceCount;
-}
+		while (numBraces != 0)
+		{
+			pos--;
 
-int* getWordsStatistic(char** wordsInText, int wordsInTextCount, char** wordsInSentence, int wordsInSentenceCount)
-{
-    int* occ = new int[wordsInSentenceCount] {};
+			if (str[pos] == '(')
+			{
+				numBraces++;
+			}
 
-    for (int i = 0; i < wordsInSentenceCount; i++)
-    {
-        for (int j = 0; j < wordsInTextCount; j++)
-        {
-            if (strcmp(wordsInText[j], wordsInSentence[i]) == 0)
-            {
-                occ[i]++;
-            }
-        }
+			if (str[pos] == ')')
+			{
+				numBraces--;
+			}
+		}
 
-    }
+		y = getValue(str, pos - 1, endPos, f, g);
+	}
 
-    return occ;
+	if (funcName == 'f')
+	{
+		return f(x, y);
+	}
+
+	return g(x, y);
 }
 
 int main()
 {
-    char text[1025];
-    std::cin.getline(text, 1025);
 
-    int wordsInTextCount = getWordsCount(text);
-    char** wordsInText = new char* [wordsInTextCount];
-    extractWordsFromSentence(text, wordsInText);
-
-    int sentenceLength;
-    std::cin >> sentenceLength;
-    std::cin.ignore();
-
-    char* sentence = new char[sentenceLength + 1]{};
-    std::cin.getline(sentence, sentenceLength + 1);
-
-    int wordsInSentenceCount = getWordsCount(sentence);
-    char** wordsInSentence = new char* [wordsInSentenceCount];
-    extractWordsFromSentence(sentence, wordsInSentence);
-
-    int consecutiveWordsCount = findConsecutiveWordsCount(wordsInText, wordsInTextCount, wordsInSentence, wordsInSentenceCount);
-
-    std::cout << consecutiveWordsCount << std::endl;
-
-    double sameWordsPercent = findSameWordsPercent(wordsInText, wordsInTextCount, wordsInSentence, wordsInSentenceCount);
-
-    std::cout << sameWordsPercent << std::endl;
-
-    int* wordsOcc = getWordsStatistic(wordsInText, wordsInTextCount, wordsInSentence, wordsInSentenceCount);
-
-    for (int i = 0; i < wordsInSentenceCount; i++)
-    {
-        std::cout << wordsInSentence[i] << ": " << wordsOcc[i] << std::endl;
-    }
-
-    delete[] wordsOcc;
-
-    for (int i = 0; i < wordsInSentenceCount; i++)
-    {
-        delete[] wordsInSentence[i];
-    }
-    delete[] wordsInSentence;
-
-    delete[] sentence;
-
-    for (int i = 0; i < wordsInTextCount; i++)
-    {
-        delete[] wordsInText[i];
-    }
-
-    delete[] wordsInText;
 
     return 0;
 }
