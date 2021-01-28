@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstring>
 
+using namespace std;
+
 typedef int(*func)(int, int);
 
 int getPoweMod(int a, int b)
@@ -18,7 +20,7 @@ bool isDigit(char c)
 	return c >= '0' && c <= '9';
 }
 
-int getValue(char* str, int startPos, int endPos, func f, func g)
+int evaluateExpression(char* str, int startPos, int endPos, func f, func g)
 {
 	if (startPos == endPos)
 	{
@@ -52,7 +54,7 @@ int getValue(char* str, int startPos, int endPos, func f, func g)
 			}
 		}
 
-		x = getValue(str, startPos, pos, f, g);
+		x = evaluateExpression(str, startPos, pos, f, g);
 	}
 
 	endPos--;
@@ -80,7 +82,7 @@ int getValue(char* str, int startPos, int endPos, func f, func g)
 			}
 		}
 
-		y = getValue(str, pos - 1, endPos, f, g);
+		y = evaluateExpression(str, pos - 1, endPos, f, g);
 	}
 
 	if (funcName == 'f')
@@ -93,7 +95,12 @@ int getValue(char* str, int startPos, int endPos, func f, func g)
 
 int main()
 {
+	char expression[100];
+	cin.getline(expression, 100);
 
+	int end = strlen(expression) - 1;
+
+	cout << evaluateExpression(expression, 0, end, getPoweMod, getSumMod) << endl;
 
     return 0;
 }
